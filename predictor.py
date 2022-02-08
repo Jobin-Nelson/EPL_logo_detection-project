@@ -1,9 +1,10 @@
 import tensorflow as tf
 import numpy as np
 
-labels = ['Arsenal', 'Aston-villa', 'Brentford', 'Brighton', 'Burnley', 'Chelsea', 'Crystal-palace', 'Everton', 'Leeds', 'Leicester-city', 'Liverpool', 'Manchester-city', 'Manchester-united', 'Newcastle', 'Norwich', 'Southampton', 'Tottenham', 'Watford', 'West-ham', 'Wolves']
 
 def predict_with_model(model, img_path):
+    labels = ['Arsenal', 'Aston-villa', 'Brentford', 'Brighton', 'Burnley', 'Chelsea', 'Crystal-palace', 'Everton', 'Leeds', 'Leicester-city', 'Liverpool', 'Manchester-city', 'Manchester-united', 'Newcastle', 'Norwich', 'Southampton', 'Tottenham', 'Watford', 'West-ham', 'Wolves']
+
     image = tf.io.read_file(img_path)
     image = tf.image.decode_png(image, channels=3)
     image = tf.image.convert_image_dtype(image, dtype=tf.float32)

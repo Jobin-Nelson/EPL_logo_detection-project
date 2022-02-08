@@ -5,7 +5,7 @@ from tensorflow.keras import Model
 from utils import create_generators
 import json
 
-def model_1(n_classes):
+def custom_model(n_classes):
     my_input = Input(shape=(140, 140, 3))
     
     x = Conv2D(32, (3, 3), activation='relu')(my_input)
@@ -41,11 +41,10 @@ if __name__ == '__main__':
     # with open('labels.json', 'w') as f:
     #     json.dump(label_map, f)
 
-    TRAIN_SAVE = False
     TRAIN = False
     TEST = False
 
-    if TRAIN_SAVE:
+    if TRAIN:
         ckpt_saver = ModelCheckpoint(
             model_path,
             monitor='val_accuracy',
@@ -57,7 +56,7 @@ if __name__ == '__main__':
 
         early_stop = EarlyStopping(monitor='val_accuracy', patience=7)
 
-        model = model_1(n_classes)
+        model = custom_model(n_classes)
 
         model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
@@ -68,9 +67,6 @@ if __name__ == '__main__':
             validation_data=val_gen,
             callbacks=[ckpt_saver, early_stop]
         )
-
-    if TRAIN:
-        pass
         
     if TEST:
         model = tf.keras.models.load_model('./Models')
